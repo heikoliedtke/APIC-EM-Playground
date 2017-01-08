@@ -54,7 +54,7 @@ def run_event_loop():
         cmd = cmd.lower().strip()
         if cmd == "1":
             cls()
-            ticket = getTicket(controller, username, password)
+            ticket = get_ticket(controller, username, password)
             print('Received Serviceticket {}'.format(ticket))
             input("Press Enter to continue")
         elif cmd == "2":
@@ -65,50 +65,50 @@ def run_event_loop():
             # Get Network Devices
             cls()
             if not ticket:
-                ticket = getTicket(controller, username, password)
+                ticket = get_ticket(controller, username, password)
 
-            devices = getNetworkDevices(controller, ticket)
-            printNetworkDevices(devices)
+            devices = get_network_devices(controller, ticket)
+            print_network_devices(devices)
             input("Press Enter to continue")
         elif cmd == "4":
             # Get PnP Projects
             cls()
             if not ticket:
-                ticket = getTicket(controller, username, password)
-            projects = getPnPProjects(controller, ticket)
-            listPnpProjects(projects)
+                ticket = get_ticket(controller, username, password)
+            projects = get_pnp_projects(controller, ticket)
+            print_pnp_projects(projects)
             input("Press Enter to continue")
 
 
         elif cmd == "5":
             cls()
             if not ticket:
-                ticket = getTicket(controller, username, password)
+                ticket = get_ticket(controller, username, password)
             if not devices:
-                devices = getNetworkDevices(controller, ticket)
-            printNetworkDevices(devices)
+                devices = get_network_devices(controller, ticket)
+            print_network_devices(devices)
             actual = int(input("Which device config?"))
-            config = getDeviceConfig(controller, ticket, devices[actual].id)
-            saveConfig(config, devices[actual].hostname)
+            config = get_device_config(controller, ticket, devices[actual].id)
+            save_config(config, devices[actual].hostname)
 
 
         elif cmd == "6":
             # POST PnP Project
             cls()
             if not ticket:
-                ticket = getTicket(controller, username, password)
-            PutPnPProject(controller, ticket)
+                ticket = get_ticket(controller, username, password)
+            post_pnp_project(controller, ticket)
 
 
         elif cmd == "7":
             # POST PnP Device
             if not ticket:
-                ticket = getTicket(controller, username, password)
+                ticket = get_ticket(controller, username, password)
             if not projects:
-                projects = getPnPProjects(controller, ticket)
-            listPnpProjects(projects)
+                projects = get_pnp_projects(controller, ticket)
+            print_pnp_projects(projects)
             actual = int(input("For wich PnP Project?"))
-            PostPnpDevice(controller, ticket, projects[actual].id)
+            post_pnp_device(controller, ticket, projects[actual].id)
 
 
 
@@ -117,8 +117,8 @@ def run_event_loop():
         elif cmd == "8":
             # GET PnP Devices
             if not ticket:
-                ticket = getTicket(controller, username, password)
-            listPnpDevices(controller, ticket)
+                ticket = get_ticket(controller, username, password)
+            print_pnp_devices(controller, ticket)
 
 
 

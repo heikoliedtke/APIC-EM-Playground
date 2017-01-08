@@ -15,7 +15,7 @@ PnpProjects = collections.namedtuple('PnpProjects',
 
 # "siteName"], i["deviceCount"], i["provisionedOn"
 
-def getTicket(controller, username, password):
+def get_ticket(controller, username, password):
     """
     This functions contacts the APIC-EM controller and gets the
     service ticket for further requests.
@@ -34,7 +34,7 @@ def getTicket(controller, username, password):
     return ticket
 
 
-def getPnPProjects(controller, ticket):
+def get_pnp_projects(controller, ticket):
     url = controller + "pnp-project"
     header = {"content-type": "application/json", "X-Auth-Token": ticket}
     response = requests.get(url, headers=header, verify=False)
@@ -57,7 +57,7 @@ def getPnPProjects(controller, ticket):
     return projects
 
 
-def getNetworkDevices(controller, ticket):
+def get_network_devices(controller, ticket):
     """
     This function contacts the APIC-EM controller and gets all network devices back in
     a dictionary. The dictionary is initialized in a not pythonic style, because not all
@@ -92,7 +92,7 @@ def getNetworkDevices(controller, ticket):
     return devices
 
 
-def printNetworkDevices(devices):
+def print_network_devices(devices):
     """
     This function just prints or lists the devices given in the
     dictionary devices. The field lookup is used for selecting devices
@@ -108,7 +108,7 @@ def printNetworkDevices(devices):
     return
 
 
-def listPnpProjects(projects):
+def print_pnp_projects(projects):
     for a in projects:
         print("      {}     {}     {}".format(projects[a].lookup,
                                               projects[a].siteName,
@@ -116,7 +116,7 @@ def listPnpProjects(projects):
     return
 
 
-def getDeviceConfig(controller, ticket, id):
+def get_device_config(controller, ticket, id):
     """
     This function contacts the APIC-EM controller and gets a config
     for a specific device.
@@ -134,7 +134,7 @@ def getDeviceConfig(controller, ticket, id):
     return config
 
 
-def saveConfig(config, name):
+def save_config(config, name):
     """
     This function saves the config to a directory "configs"
     :param config: The config
@@ -157,7 +157,7 @@ def saveConfig(config, name):
     return
 
 
-def PutPnPProject(controller, ticket):
+def post_pnp_project(controller, ticket):
     url = controller + "pnp-project"
 
     project = input("Which Projectname:")
@@ -172,7 +172,7 @@ def PutPnPProject(controller, ticket):
     input("Any key to continue")
 
 
-def PostPnpDevice(controller, ticket, id):
+def post_pnp_device(controller, ticket, id):
     url = controller + ("pnp-project/{}/device".format(id))
     header = {"content-type": "application/json", "X-Auth-Token": ticket}
 
@@ -191,7 +191,7 @@ def PostPnpDevice(controller, ticket, id):
     input("Any key to continue")
 
 
-def listPnpDevices(controller, ticket):
+def print_pnp_devices(controller, ticket):
     url = controller + "pnp-device"
     header = {"content-type": "application/json", "X-Auth-Token": ticket}
     response = requests.get(url, headers=header, verify=False)
